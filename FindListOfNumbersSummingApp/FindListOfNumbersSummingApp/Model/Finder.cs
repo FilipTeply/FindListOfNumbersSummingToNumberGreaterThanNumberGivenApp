@@ -2,55 +2,49 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FindListOfNumbersSummingApp
+namespace FindListOfNumbersSummingApp.Model
 {
     internal class Finder
     {
+        //{ 1, 11, 1, 1, 2, 10, 1, 1 }, 9
+
         internal List<int> FindListOfNumbersSummingToNumberGreaterThanNumberGivenApp(List<int> list, int targetSumMinusOne)
         {
-            List<int> outList = new List<int>();
-            int actualSum = 0;
+            List<int> actualOutList = new List<int>();
+            List<int> minimalOutList = new List<int>(list);
+            int minimalCount = list.Count();
 
             if (!CheckIfValidSolutionExists(list, targetSumMinusOne))
             {
                 Console.WriteLine("The sum of all numbers in the list is not greater than given number: " + targetSumMinusOne +
                     ". The task does not have solution.");
-                return outList;
+                return minimalOutList;
             }
 
-            int minimalCountOfNumbersSummingGreater;
-            int sum1 = 0;
-            int sum2 = 0;
-            int sum3 = 0;
-            int sum4 = 0;
+            //int minimalCountOfNumbersSummingGreater;
+            //int sum1 = 0;
+            //int sum2 = 0;
+            //int sum3 = 0;
+            //int sum4 = 0;
 
             for (int i = 0; i < list.Count(); i++)
             {
                 for (int j = 0; j < list.Count(); j++)
                 {
-                    if (SumOfNumbersFromIndexXtoIndexYInclusive(list, i, j) > targetSumMinusOne)
+
+                    actualOutList = list.GetRange(i, j);
+
+                    if (actualOutList.Sum() > targetSumMinusOne && actualOutList.Sum() < minimalOutList.Sum() && actualOutList.Count() <= minimalOutList.Count())
                     {
-                        sum1 = SumOfNumbersFromIndexXtoIndexYInclusive(list, i, j);
-                        outList = list.GetRange(i, j + 1);
-                        minimalCountOfNumbersSummingGreater = j - i + 1;
-                        continue;
+                        minimalOutList = list.GetRange(i, j).ToList();
+                        minimalCount = minimalOutList.Count();
+                        i++;
+                        j -= 2;
                     }
+
                 }
             }
-            return outList;
-
-
-            //for (int i = 0; i < list.Count(); i++)
-            //{
-
-            //    if (true) { }
-
-            //    if (list[i] >= targetSumMinusOne)
-            //    {
-            //        outList.Add(list[i]);
-            //    }
-
-            //}
+            return minimalOutList;
         }
 
         public bool CheckIfValidSolutionExists(List<int> list, int targetSumMinusOne)
@@ -66,7 +60,7 @@ namespace FindListOfNumbersSummingApp
         {
             int sum = 0;
 
-            for (int i = fromIndexX; i <= toIndexY; fromIndexX++)
+            for (int i = fromIndexX; i <= toIndexY; i++)
             {
                 sum += list[i];
             }
