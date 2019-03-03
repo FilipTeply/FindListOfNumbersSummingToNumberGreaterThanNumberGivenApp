@@ -6,8 +6,6 @@ namespace FindListOfNumbersSummingApp.Model
 {
     internal class Finder
     {
-        //{ 10, 11, 1, 1, 2, 10, 1, 1 }, 9
-
         internal List<int> FindListOfNumbersSummingToNumberGreaterThanNumberGivenApp(List<int> list, int targetSumMinusOne)
         {
             List<int> actualOutList = new List<int>();
@@ -23,19 +21,21 @@ namespace FindListOfNumbersSummingApp.Model
 
             for (int i = 0; i < list.Count(); i++)
             {
-                for (int j = 0; j < list.Count()-i+1; j++)
+                for (int j = 0; j < list.Count() - i + 1; j++)
                 {
                     actualOutList = list.GetRange(i, j).ToList();
 
-                    if (actualOutList.Sum() > targetSumMinusOne && actualOutList.Sum() <= minimalOutList.Sum() )
+                    if (actualOutList.Sum() > targetSumMinusOne && actualOutList.Sum() <= minimalOutList.Sum())
                     {
-                        //&& actualOutList.Count() <= minimalOutList.Count()
                         minimalOutList = list.GetRange(i, j).ToList();
                         minimalCount = minimalOutList.Count();
+                        //if (minimalCount > actualOutList.Count() && actualOutList.Sum() < minimalOutList.Sum())
+                        //{
+                        //    minimalOutList = list.GetRange(i, j).ToList();
+                        //}
                         i++;
                         j -= 2;
                     }
-
                 }
             }
             return minimalOutList;
@@ -60,6 +60,5 @@ namespace FindListOfNumbersSummingApp.Model
             }
             return sum;
         }
-
     }
 }
