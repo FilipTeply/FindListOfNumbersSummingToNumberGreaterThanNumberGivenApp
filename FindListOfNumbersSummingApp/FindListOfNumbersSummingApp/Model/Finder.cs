@@ -29,9 +29,11 @@ namespace FindListOfNumbersSummingApp.Model
                     {
                         minimalOutList = list.GetRange(i, j).ToList();
                         minimalCount = minimalOutList.Count();
+
                         //if (minimalCount > actualOutList.Count() && actualOutList.Sum() < minimalOutList.Sum())
                         //{
                         //    minimalOutList = list.GetRange(i, j).ToList();
+                        //    minimalCount = minimalOutList.Count();
                         //}
                         i++;
                         j -= 2;
